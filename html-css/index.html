@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <title>SANGU – HTML/CSS Playground</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Monaco Editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.0/min/vs/loader.min.js"></script>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">
+        <span class="brand-main">SANGU</span>
+        <span class="brand-sub">HTML/CSS Playground</span>
+        <span class="brand-author">© 2025 Kakhaber Revazishvili – SANGU IT Department</span>
+      </div>
+      <span class="tag">Student Edition</span>
+    </div>
+
+    <div class="topbar-right">
+      <button class="btn btn-secondary" onclick="runFile()">Run File ▶</button>
+      <button class="btn btn-ghost" onclick="runProject()">Run Project ▶</button>
+
+      <label class="live-toggle">
+        <input type="checkbox" id="live-toggle">
+        Live Preview
+      </label>
+
+      <button class="btn btn-ghost" onclick="downloadProject()">ZIP Download</button>
+      <button class="btn btn-ghost" onclick="exportSingleHtml()">Export HTML</button>
+
+      <label class="btn btn-ghost upload-label">
+        Upload ZIP
+        <input type="file" accept=".zip" onchange="uploadProject(event)">
+      </label>
+
+      <button class="btn btn-danger" onclick="resetProject()">Reset</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="section-title">Project files</span>
+        <div class="sidebar-actions">
+          <button class="icon-btn" onclick="addFile()">＋</button>
+          <button class="icon-btn" onclick="deleteFile()">🗑</button>
+        </div>
+      </div>
+
+      <ul id="file-list" class="file-list"></ul>
+
+      <div class="sidebar-block">
+        <div class="sidebar-block-title">HTML მაგალითში გამოიყენე:</div>
+        <pre class="code-hint">&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;</pre>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-block-title">Templates</div>
+        <select id="template-select" class="template-select">
+          <option value="">— აირჩიე შაბლონი —</option>
+          <option value="basic">Basic page</option>
+          <option value="flex">Flexbox layout</option>
+          <option value="grid">Grid gallery</option>
+        </select>
+        <button class="btn-mini" onclick="insertTemplate()">Insert template</button>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-block-title">Task</div>
+        <p id="task-text" class="task-text">
+          შექმენი მარტივი გვერდი, სადაც არის header, ნავიგაცია, content და footer.
+          სცადე Flex ან Grid გამოყენება.
+        </p>
+        <button class="btn-mini" onclick="checkTask()">Check task</button>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-block-title">Share project</div>
+        <textarea id="share-text" class="share-text" readonly></textarea>
+        <button class="btn-mini" onclick="generateShare()">Generate JSON</button>
+      </div>
+    </aside>
+
+    <!-- Editor -->
+    <section class="editor-panel">
+      <div class="editor-header">
+        <div class="file-info">
+          <span id="current-file-name" class="file-name"></span>
+          <span id="file-type-label" class="file-type"></span>
+        </div>
+      </div>
+      <div id="editor" class="editor-root"></div>
+    </section>
+
+    <!-- Preview + Console -->
+    <section class="preview-panel">
+      <div class="preview-header">
+        <span>Preview</span>
+      </div>
+      <iframe id="preview" class="preview-frame"></iframe>
+
+      <div class="console-panel">
+        <div class="console-header">
+          <span>Console</span>
+          <button class="btn-mini" onclick="clearConsole()">Clear</button>
+        </div>
+        <div id="console-output" class="console-output"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="statusbar">
+    <div class="status-left">
+      <span id="status-bar-text">Ready.</span>
+    </div>
+    <div class="status-right">
+      <span class="status-label">Project:</span>
+      <select id="project-select" class="project-select"></select>
+      <button class="btn-mini" onclick="newProject()">New</button>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    window.require.config({
+      paths: { vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.0/min/vs" },
+    });
+    window.require(["vs/editor/editor.main"], function () {
+      if (window.initPlayground) window.initPlayground();
+    });
+  </script>
+</body>
+</html>
